@@ -9,7 +9,7 @@
 	$errflag = false;
 	
 	//Connect to mysql server
-	$link = mysql_connect('localhost','root',"root");
+	$link = mysql_connect('localhost','root',"");
 	if(!$link) {
 		die('Failed to connect to server: ' . mysql_error());
 	}
@@ -52,7 +52,7 @@
 	}
 	
 	//Create query
-	$qry="SELECT * FROM user WHERE username='$username' AND password='$password'";
+	$qry="SELECT * FROM cashier WHERE username ='$username' AND password ='$password'";
 	$result=mysql_query($qry);
 	
 	//Check whether the query was successful or not
@@ -61,8 +61,8 @@
 			//Login Successful
 			session_regenerate_id();
 			$member = mysql_fetch_assoc($result);
-			$_SESSION['SESS_MEMBER_ID'] = $member['id'];
-			$_SESSION['SESS_FIRST_NAME'] = $member['name'];
+			$_SESSION['SESS_MEMBER_ID'] = $member['cashier_id'];
+			$_SESSION['SESS_FIRST_NAME'] = $member['cashier_name'];
 			$_SESSION['SESS_LAST_NAME'] = $member['position'];
 			session_write_close();
 			header("location: home.php");
